@@ -32,8 +32,8 @@ project_crs <- as.character(crs(GHS_POP))
 ################## Run these in a consecutive order ################## 
 
 # 1. Search for the country you want to process
-# To see all countries run it with "" only 
-country <- country_finder("")
+# To see all countries leave it blank
+country <- country_finder()
 
 # 2. Download boundary from GADM - leave blank
 boundary <- boundary_downloader()
