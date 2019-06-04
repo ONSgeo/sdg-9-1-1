@@ -9,6 +9,11 @@ country_finder <- function(x) {
     message("--- ISO_LOOKUP.RDS not found - make sure it's in the 'data' folder")
     return(NULL)
   })
+    if(missing(country_name) == TRUE){
+    message("No input provided - printing all countries in the lookup")
+    print(lookup)
+    message("No input provided - printing all countries in the lookup")
+   }  else{
   # Load name of country being searched
   country_name <- str_to_upper(x)
   # Find matches in lookup file
@@ -39,6 +44,7 @@ country_finder <- function(x) {
     print(result)
   }
   return(result)
+  }
 }
 
 boundary_downloader <- function() {
