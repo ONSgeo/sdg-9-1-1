@@ -1,48 +1,86 @@
-# Sustainable Development Goal 9.1.1
-## Proportion of the rural population who live within 2 km of an all-season road.
+## Introduction
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+The Sustainable Development Goals (SDGs) are part of the UN 2030 Agenda for Sustainable Development. The Office for National Statistics (ONS) reports the UK data for the SDG indicators on the [UK SDG data website](https://sdgdata.gov.uk/).
 
-## World Bank SDG 9.1.1 Metadata: 
-**Definition:**
-The indicator (commonly known as the Rural Access Index or RAI) measures the share of a country’s rural
-population that lives within 2 km of an all-season road.
-**Rationale:**
-Among other factors, transport connectivity is an essential part of the enabling environment for inclusive
-and sustained growth. In developing countries, particularly in Africa, the vast majority of agricultural
-production remains smallholder farming with limited access to local, regional, or global markets. Isolated
-manufacturing and other local businesses (except for those related to mining) often lag behind in the
-global market. Limited transport connectivity is also a critical constraint to accessing social and
-administrative services, especially in rural areas where the majority of the poor live.
-Rural access is key to unleashing untapped economic potential and eradicating poverty in many
-developing countries. In the short term, transport costs and travel time can be reduced by improved road
-conditions. Over the longer term, agricultural productivity will be increased, and firms will become more
-profitable with the creation of more jobs, eventually helping to alleviate poverty. 
 
-Full metadata: https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf
+Included in the 17 SDGs is Goal 15, which aims to ‘Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss’. One of the goal 15 indicators that, until recently, remained unreported for the UK, is **15.1.1: ‘Forest area as a proportion of total land area’**. 
 
-## Data
-Before running the script download the following data sets and place them in the specified folders.
+This code aims to provide a means to report on the status of SDG 15.1.1 in the UK from available open data. It is hoped that the base class included will also provide a starting point to analyse additional SDGs.  
 
-**GRIP roads:**
- * https://www.globio.info/download-grip-dataset 
- * Download the fgdb file for the relevant region
- * Unzip into the data/roads folder in your working directory
- 
-**GHS Population Grid and Settlement Grid:**
- * http://cidportal.jrc.ec.europa.eu/ftp/jrc-opendata/GHSL/GHS_POP_GPW4_GLOBE_R2015A/GHS_POP_GPW42015_GLOBE_R2015A_54009_1k/V1-0/GHS_POP_GPW42015_GLOBE_R2015A_54009_1k_v1_0.zip
- * http://cidportal.jrc.ec.europa.eu/ftp/jrc-opendata/GHSL/GHS_SMOD_POP_GLOBE_R2016A/GHS_SMOD_POP2015_GLOBE_R2016A_54009_1k/V1-0/GHS_SMOD_POP2015_GLOBE_R2016A_54009_1k_v1_0.zip
- * Unzip both into data/raster folder in your working directory
+### Definitions	
 
-## Authors / Contributors
-ONS Geography Research
+According to the Food and Agriculture Organization of the United Nations (FAO), Forest is defined as: “land spanning more than 0.5 hectares with trees higher than 5 meters and a canopy cover of more than 10 percent, or trees able to reach these thresholds in situ. It does not include land that is predominantly under agricultural or urban land use”. In the United Kingdom, forest is defined as below:
 
-## Sources
-**Global Roads Inventory Project**
- * Meijer, J.R., Huijbegts, M.A.J., Schotten, C.G.J. and Schipper, A.M. (2018): Global patterns of current and future road infrastructure. Environmental Research Letters, 13-064006. Data is available at www.globio.info
+**Forest/woodland** all forest and woodland area over 0.5 hectare with a minimum of 20% canopy cover (25% in Northern Ireland) (or the potential to achieve it) and a minimum width of 20 metres, including areas of new planting, clearfell, windblow and restocked areas. This differs from the UN definition for which the minimum canopy cover is 10% (or the potential to achieve it)
 
-**GHS Population Grid**
- * European Commission, Joint Research Centre (JRC); Columbia University, Center for International Earth Science Information Network - CIESIN (2015):  GHS population grid, derived from GPW4, multitemporal (1975, 1990, 2000, 2015). European Commission, Joint Research Centre (JRC) [Dataset] PID: http://data.europa.eu/89h/jrc-ghsl-ghs_pop_gpw4_globe_r2015a
- 
-**GHS Settlement Grid**
- * Pesaresi, Martino; Freire, Sergio (2016):  GHS Settlement grid following the REGIO model 2014 in application to GHSL Landsat and CIESIN GPW v4-multitemporal (1975-1990-2000-2015). European Commission, Joint Research Centre (JRC) [Dataset] PID: http://data.europa.eu/89h/jrc-ghsl-ghs_smod_pop_globe_r2016a
+**Land area**  is the country area excluding area under inland waters and coastal waters. For this analysis, total land area is calculated using Standard Area Measurements (**SAM**) available on the [ONS Open Geography portal](https://geoportal.statistics.gov.uk/search?collection=Dataset&sort=name&tags=all(PRD_SAM)). All measurements provided are ‘flat’ as they do not take into account variations in relief e.g. mountains and valleys. Measurements are given in hectares (10,000 square metres) to 2 decimal places. Four types of measurements are included: total extent (AREAEHECT), area to mean high water (coastline) (AREACHECT), area of inland water (AREAIHECT) and area to mean high water excluding area of inland water (land area) (AREALHECT) which is the type used for this analysis.
+
+### Useage
+
+1. Clone this repository into the directory you'd like to work from. 
+
+2. In the command-line interface, navigate to the root folder of the project and enter:
+     
+    pip install .
+    
+3. Create a .env file to set the user parameters. To do this, open Notepad and write ROOT_DIR= and the directory you'd like to work from,  eg: 
+    
+    ROOT_DIR=C:\Users\username\scripts\sdg15_1_1     
+
+Save this notepad as a .env file (by simply saving as .env) in the main directory you'd like to work from.
+
+4. Userparams class assumes that input data will be located in the main directory within a folder named sdg_name_data, eg:
+
+    C:\Users\username\scripts\SDGs\sdg_15_1_1_data
+    
+This, the directory to which outputs are saved, and the years to be analysed can be customised within user_params. 
+
+5. SDG15_1_1_Calculate and SDG15_1_1_Analysis can now be used!
+      
+
+### Data
+
+       Forest/Woodland data - Forestry Commission Open Data (GB) and DAERA (NI).  
+       Land area - Local authority districts (LADs) boundaries from ONS Open Geography portal.
+       SAM for LADs from ONS Open Geography portal.
+
+### Methodology
+
+    SDGBase was designed to present a resusable base class applicable to the analysis of multiple SDGs.   
+
+    SDG15_1_1 is a child class of SDGBase and performs functions relevant to the analysis of SDG15_1_1. It is potentially applicable to the
+    analysis of further SDGs with input data of a similar structure. 
+    
+    UserParams class offers customisation to the user; directories from which to input data, save output data and select
+    the years for which the SDG is to be calculated. 
+    
+    Once UserParams are specified, SDG15_1_1_Calculate.ipynb allows the user to calculate SDG15_1_1 across multiple years and 
+    outputs results as both a data frame and a choropleth map.   
+    
+    SDG15_1_1_Analysis.ipynb offers the user further insight into the data, allowing SDG metrics to be explored by individual land               divisions across time. 
+       
+### Calculation
+    
+    Forest area as a proportion of total land area (PFATLA) = Forest area (reference year)/Land area (reference year)*100 
+
+### Analysis
+
+    SDGBase presents an abstract base class enabling the defintion of input and output directories for data analysis, use of relevant
+    read methods based on the file extension of inputs, and the joining of dataframes; applicable to 
+    analysis of additional SDGs.  
+    
+    SDG15_1_1 is a child class of SDGBase and allows for the automatic pairing of data input files published in the same year, 
+    analysis across multiple years, calculation of SDG15_1_1 and plotting and saving of results.     
+    
+    SDG15_1_1_Calculate.ipynb allows the user to calculate SDG15_1_1 from the file directories specified in UserParams class and produces
+    and saves outputs (forest area as a proportion of total land area for each specified land division) for each available year as both a       .csv file and as a choropleth map (.jpeg).
+    
+    SDG15_1_1_Analysis.ipynb allows plotting of a time series of forest area as a proportion of total land area for each land division         across available years.   
+              
+### Outputs
+
+    SDG15_1_1_Calculate.ipynb produces outputs for each specified year as a .csv file (forest area as a proportion of total land area for       each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). 
+    
+    SDG15-1_1_Analysis.ipynb allows plotting of a time series of forest area as a proportion of total land area for each land division         across available years.   
+       
+       
