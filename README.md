@@ -69,6 +69,4 @@ England and Wales (statistical geography boundaries): Local-Authority District B
 
 **It may be possible to find a geographic representation of rural-urban classifications. In this instance, administrative boundaries won't be necessary. This code is however designed to be run with them as an input, so that step will need to be omitted.**
 
- 
-**GHS Settlement Grid**
- * Pesaresi, Martino; Freire, Sergio (2016):  GHS Settlement grid following the REGIO model 2014 in application to GHSL Landsat and CIESIN GPW v4-multitemporal (1975-1990-2000-2015). European Commission, Joint Research Centre (JRC) [Dataset] PID: http://data.europa.eu/89h/jrc-ghsl-ghs_smod_pop_globe_r2016a
+All access roads: OS data provides road classifications, but does not define all season. 
