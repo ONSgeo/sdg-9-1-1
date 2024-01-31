@@ -44,16 +44,16 @@ Save this notepad as a `.env` file (by simply saving as `.env`) in the main dire
    This is also true for the output directory, where the default directory for output data will be: 'C:\Users\username\scripts\SDGs\sdg_x_x_x_output'
 
    For this SDG indicator the other user parameters are:
-     - The specific path to the raster population file for the single year (inc variable name?)
-     - The specific path to the Rural Urban Classification file for the single year
-     - The specific path to the LAD shape file for the single year
-     - The specific path to the Roads shape file for the single year
-     - The column that contains the rural urban classifications
-     - The column that contains the road type classifications
-     - The type of roads to filter out of the dataframe
-     - The column to dissolve the dataframes on
+     - `raster_file_path`: The specific path to the raster population file for the single year
+     - `ruc_file_path`: The specific path to the Rural Urban Classification file for the single year
+     - `lad_file_path`: The specific path to the LAD shape file for the single year
+     - `roads_file_path`: The specific path to the Roads shape file for the single year
+     - `rural_class_col`: The column that contains the rural urban classifications
+     - `road_class_col`: The column that contains the road type classifications
+     - `road_classif_list`: The type of roads to filter out of the dataframe
+     - `dissolve_col`: The column to dissolve the dataframes on
     
-7. SDG9_1_1_Calculate can now be used!
+5. SDG9_1_1_Calculate can now be used!
       
 
 ### Data
