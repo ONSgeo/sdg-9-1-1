@@ -23,7 +23,46 @@ Save this notepad as a .env file within the cloned repository.
 4. Userparams class 
 
 ## Usage 
-?
+### Useage
+
+1. Clone this repository into the directory you'd like to work from. 
+
+2. In the command-line interface, navigate to the root folder of the project and enter:
+     
+    pip install .
+    
+3. Create a .env file to set the user parameters. To do this, open Notepad and write `ROOT_DIR=` and the directory you'd like to work from,  eg: 
+    
+    ```ROOT_DIR=C:\Users\username\scripts\sdg15_1_1```     
+
+Save this notepad as a `.env` file (by simply saving as `.env`) in the main directory you'd like to work from.
+
+4. The **UserParams class (found in `user_params.py`) is where unique parameters are defined for the SDG indicator calculation.**
+   
+   It will make the assumption that input data will be located in the main directory within a folder named sdg_x_x_x_data, unless you specify a different `data_dir`, eg:
+   
+   if `self.data_dir: Optional[str] = None`:
+   
+   data will be stored in: `C:\Users\username\scripts\SDGs\sdg_x_x_x_data`
+
+   else if `self.data_dir: Optional[str] = "C:\Users\username\somewhere_else"`:
+
+   data will be stored in: `C:\Users\username\somewhere_else`
+
+   This is also true for the output directory, where the default directory for output data will be: 'C:\Users\username\scripts\SDGs\sdg_x_x_x_output'
+
+   For this SDG indicator the other user parameters are:
+     - `raster_file_path`: The specific path to the raster population file for the single year
+     - `ruc_file_path`: The specific path to the Rural Urban Classification file for the single year
+     - `lad_file_path`: The specific path to the LAD shape file for the single year
+     - `roads_file_path`: The specific path to the Roads shape file for the single year
+     - `rural_class_col`: The column that contains the rural urban classifications
+     - `road_class_col`: The column that contains the road type classifications
+     - `road_classif_list`: The type of roads to filter out of the dataframe
+     - `dissolve_col`: The column to dissolve the dataframes on
+    
+5. SDG9_1_1_Calculate can now be used!
+      
 
 ## Input Data
 
