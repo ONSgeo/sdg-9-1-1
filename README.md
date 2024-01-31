@@ -23,19 +23,37 @@ According to the Food and Agriculture Organization of the United Nations (FAO), 
      
     pip install .
     
-3. Create a .env file to set the user parameters. To do this, open Notepad and write ROOT_DIR= and the directory you'd like to work from,  eg: 
+3. Create a .env file to set the user parameters. To do this, open Notepad and write `ROOT_DIR=` and the directory you'd like to work from,  eg: 
     
-    ROOT_DIR=C:\Users\username\scripts\sdg15_1_1     
+    ```ROOT_DIR=C:\Users\username\scripts\sdg15_1_1```     
 
-Save this notepad as a .env file (by simply saving as .env) in the main directory you'd like to work from.
+Save this notepad as a `.env` file (by simply saving as `.env`) in the main directory you'd like to work from.
 
-4. Userparams class assumes that input data will be located in the main directory within a folder named sdg_name_data, eg:
+4. The UserParams class (found in `user_params.py`) is where you can set the parameters for the SDG calculation. It will make the assumption that input data will be located in the main directory within a folder named sdg_x_x_x_data, unless you specify a different `data_dir`, eg:
+   
+   if `self.data_dir: Optional[str] = None`:
+   
+   data will be stored in: `C:\Users\username\scripts\SDGs\sdg_x_x_x_data`
 
-    C:\Users\username\scripts\SDGs\sdg_15_1_1_data
+   else if `self.data_dir: Optional[str] = "C:\Users\username\somewhere_else"`:
+
+   data will be stored in: `C:\Users\username\somewhere_else`
+
+   This is also true for the outputs directory which operates in the same way.
+
+   Below these there are the other SDG specific parameters, these are where you can edit the parameters for the individual SDG calculation.
+
+   For this SDG the other parameters are:
+     - The specific path to the raster population file for the single year
+     - The specific path to the Rural Urban Classification file for the single year
+     - The specific path to the LAD shape file for the single year
+     - The specific path to the Roads shape file for the single year
+     - The column that contains the rural urban classifications
+     - The column that contains the road type classifications
+     - The type of roads to filter out of the dataframe
+     - The column to dissolve the dataframes on
     
-This, the directory to which outputs are saved, and the years to be analysed can be customised within user_params. 
-
-5. SDG15_1_1_Calculate and SDG15_1_1_Analysis can now be used!
+6. SDG9_1_1_Calculate can now be used!
       
 
 ### Data
