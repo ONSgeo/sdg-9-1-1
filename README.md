@@ -93,16 +93,25 @@ England and Wales (rural-urban classification): Rural-Urban Classification, ONS 
 England and Wales (statistical geography boundaries): Local-Authority District Boundaries, ONS Open Geography Portal. 
 (https://geoportal.statistics.gov.uk/) 
 
+## Output data
+
 ## Methodology
 
+1. The Rural-Urban Classification (dataframe) is merged to geographic boundaries (geodataframe). This creates a spatial representation of rural areas. The merge is completed on a common column that is automatically determined based upon column similarity, so the input dataframes don't need to have a perfectly matched column. This subverts the need for the pre-processing of input data, such as when one dataset contains information covering Great Britain and the other only Wales and England. 
 
-       
+2. The newly created rural areas geodataframe is next overlayed onto the population raster. The resultant product is a geodataframe of the popualtion of rural areas; location, density and total popualtion. The overlay is completed as an intersection, thus discarding the urban population which is not relevant to the calculation of this indicator. 
 
-## Outputs
+3. Processing of the roads geodataframe is completed seperatley before merging to the rural popualtion geodataframe since it is typically very large in its raw format. Firstly, all-season roads are isolated by excluding non-all-season roads using a filter condition. The geometry of the roads are then buffered to 2000m to provide a catchment for areas > 2km from an all-season road. All-season roads in rural areas only are captured through an intersection overlay with the rural areas geodataframe, and the final buffered rural roads product is dissolved to geographic boundaries for simplification. 
 
+4. The roads geodataframe and rural popualtion geodataframe are then spatially joined with the predicate "within" to produce a geodataframe of the population living within 2km of an all-season road.
+
+5. The sum of the population living within 2km of an all season road is divided by the total rural population and multiplied by 100 to yield the percentage of the rural popualtion living within 2km of an all-season road.
+     
+**Calculations and methodology can be found within sdg_9_1_1.py in sdg_9_1_1.src folder.**
 
 ### Considerations
 
-**It may be possible to find a geographic representation of rural-urban classifications. In this instance, administrative boundaries won't be necessary. This code is however designed to be run with them as an input, so that step will need to be omitted.**
+- It may be possible to find a geographic representation of rural-urban classifications. In this instance, administrative boundaries won't be necessary. This code is however designed to be run with them as an input, so that step will need to be omitted.
+- This code uses LADs as default as the RUC was defined by LADs. This may not be the case in the future. Although the calculation will still hold up for any shapefile with an attribute table merginf with a csv, the nomenlature may become confusing.
+- This method currently allows for the indicator to be calculated as a total for the areas covered by the input data. In order to calcualte this SDG at a higher granularity, eg per Local Authority district could be done but we haven't
 
-All access roads: OS data provides road classifications, but does not define all season. 
