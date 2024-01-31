@@ -29,7 +29,9 @@ According to the Food and Agriculture Organization of the United Nations (FAO), 
 
 Save this notepad as a `.env` file (by simply saving as `.env`) in the main directory you'd like to work from.
 
-4. The UserParams class (found in `user_params.py`) is where you can set the parameters for the SDG calculation. It will make the assumption that input data will be located in the main directory within a folder named sdg_x_x_x_data, unless you specify a different `data_dir`, eg:
+4. The **UserParams class (found in `user_params.py`) is where unique parameters are defined for the SDG indicator calculation.**
+   
+   It will make the assumption that input data will be located in the main directory within a folder named sdg_x_x_x_data, unless you specify a different `data_dir`, eg:
    
    if `self.data_dir: Optional[str] = None`:
    
@@ -39,12 +41,10 @@ Save this notepad as a `.env` file (by simply saving as `.env`) in the main dire
 
    data will be stored in: `C:\Users\username\somewhere_else`
 
-   This is also true for the outputs directory which operates in the same way.
+   This is also true for the output directory, where the default directory for output data will be: 'C:\Users\username\scripts\SDGs\sdg_x_x_x_output'
 
-   Below these there are the other SDG specific parameters, these are where you can edit the parameters for the individual SDG calculation.
-
-   For this SDG the other parameters are:
-     - The specific path to the raster population file for the single year
+   For this SDG indicator the other user parameters are:
+     - The specific path to the raster population file for the single year (inc variable name?)
      - The specific path to the Rural Urban Classification file for the single year
      - The specific path to the LAD shape file for the single year
      - The specific path to the Roads shape file for the single year
@@ -53,7 +53,7 @@ Save this notepad as a `.env` file (by simply saving as `.env`) in the main dire
      - The type of roads to filter out of the dataframe
      - The column to dissolve the dataframes on
     
-6. SDG9_1_1_Calculate can now be used!
+7. SDG9_1_1_Calculate can now be used!
       
 
 ### Data
