@@ -107,7 +107,7 @@ England and Wales (statistical geography boundaries): Local-Authority District B
 
 5. The sum of the population living within 2km of an all season road is divided by the total rural population and multiplied by 100 to yield the percentage of the rural popualtion living within 2km of an all-season road.
      
-**Calculations and methodology can be found within sdg_9_1_1.py in sdg_9_1_1.src folder.**
+Calculations and methodology can be found within `in sdg_9_1_1_src/sdg_9_1_1.py`.  
 
 ### Considerations
 
