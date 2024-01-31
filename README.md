@@ -1,21 +1,26 @@
 ## Introduction
 
-The Sustainable Development Goals (SDGs) are part of the UN 2030 Agenda for Sustainable Development. The Office for National Statistics (ONS) reports the UK data for the SDG indicators on the [UK SDG data website](https://sdgdata.gov.uk/).
+The Sustainable Development Goals (SDGs) are part of the UN 2030 Agenda for Sustainable Development. The Office for National Statistics (ONS) reports the UK data for the SDG indicators on the [UK Sustainable Development Goals webpage](https://sdgdata.gov.uk/), contributing to progress towards a sustainable global future. 
 
+Included in the 17 SDGs is Goal 9, which aims to ["Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"](https://sdgs.un.org/goals/goal9). One indicator that supports this goal is **9.1.1: Proportion of the rural population who live within 2km of an all-season road**. This is commonly known as the Rural-Access Index (RAI). 
 
-Included in the 17 SDGs is Goal 15, which aims to ‘Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss’. One of the goal 15 indicators that, until recently, remained unreported for the UK, is **15.1.1: ‘Forest area as a proportion of total land area’**. 
+This code aims to provide an automated calculation of SDG indicator 9.1.1 for the timely reporting on progress towards Goal 9. The most recent reporting of this indicator by the UK covers the year [2011](https://sdgdata.gov.uk/9-1-1/).
 
-This code aims to provide a means to report on the status of SDG 15.1.1 in the UK from available open data. It is hoped that the base class included will also provide a starting point to analyse additional SDGs.  
+### Set-up 
+?
+1. Clone this repository into the directory you'd like to work from. 
+    
+2. Create a .env file to set the directory from which inputs will be imported and results will be exported:
 
-### Definitions	
+   Open the Notepad app and write ROOT_DIR= followed by the directory in which the input data is stored (and results we be exported to),  eg: 
+    
+    ROOT_DIR=C:\Users\username\scripts\sdg11_3_1     
 
-According to the Food and Agriculture Organization of the United Nations (FAO), Forest is defined as: “land spanning more than 0.5 hectares with trees higher than 5 meters and a canopy cover of more than 10 percent, or trees able to reach these thresholds in situ. It does not include land that is predominantly under agricultural or urban land use”. In the United Kingdom, forest is defined as below:
+Save this notepad as a .env file within the cloned repository.
 
-**Forest/woodland** all forest and woodland area over 0.5 hectare with a minimum of 20% canopy cover (25% in Northern Ireland) (or the potential to achieve it) and a minimum width of 20 metres, including areas of new planting, clearfell, windblow and restocked areas. This differs from the UN definition for which the minimum canopy cover is 10% (or the potential to achieve it)
+4. Userparams class 
 
-**Land area**  is the country area excluding area under inland waters and coastal waters. For this analysis, total land area is calculated using Standard Area Measurements (**SAM**) available on the [ONS Open Geography portal](https://geoportal.statistics.gov.uk/search?collection=Dataset&sort=name&tags=all(PRD_SAM)). All measurements provided are ‘flat’ as they do not take into account variations in relief e.g. mountains and valleys. Measurements are given in hectares (10,000 square metres) to 2 decimal places. Four types of measurements are included: total extent (AREAEHECT), area to mean high water (coastline) (AREACHECT), area of inland water (AREAIHECT) and area to mean high water excluding area of inland water (land area) (AREALHECT) which is the type used for this analysis.
-
-### Useage
+### Usage 
 
 1. Clone this repository into the directory you'd like to work from. 
 
@@ -56,49 +61,48 @@ Save this notepad as a `.env` file (by simply saving as `.env`) in the main dire
 5. SDG9_1_1_Calculate can now be used!
       
 
-### Data
+## Input Data
 
-       Forest/Woodland data - Forestry Commission Open Data (GB) and DAERA (NI).  
-       Land area - Local authority districts (LADs) boundaries from ONS Open Geography portal.
-       SAM for LADs from ONS Open Geography portal.
+This SDG indicator requires 4 distinct data types to be input: 
 
-### Methodology
+1. **A map of roads in the country of interest with classifications (eg. A-road, motorway).** Classifications are needed to establish all-season roads. The likely format for this data is .shp. 
 
-    SDGBase was designed to present a resusable base class applicable to the analysis of multiple SDGs.   
+2. **A geographic representation of population density.** Data on how many people live where is needed to establish distance of a population to an all-season road. Since the distance measured is 2km, data should be to (at least) 2km resolution, if not more detailed. The likely format of this data is .tiff (raster).  
 
-    SDG15_1_1 is a child class of SDGBase and performs functions relevant to the analysis of SDG15_1_1. It is potentially applicable to the
-    analysis of further SDGs with input data of a similar structure. 
+3. **A classification of rural and urban areas.** This is needed to isolate the rural population. The likely format of this data is .csv.
+
+4. **Administrative geography boundaries**. These boundaries provide a geographic reference to the rural-urban classification to compare spatially against population and roads, and thus needs match the geography used in the rural-urban classification. Eg, if the rural-urban classification uses Local Authority Districts (LADs), then LAD boundaries are required. The likely format of this data is .shp. 
+
+Data used to calulate this SDG should be sampled from the same year.   
+
+Since the United Kingdom is made up of four countries, each with their own methods of collecting and publishing data, total input data may amount to more than 4 sources. The SDG indicator should only be calulated using this code for countries where a full input dataset is available. 
+
+[Further detail on requirements for SGG 9.1.1 as specified by the UN.](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf) 
+
+### Previously used data sources
     
-    UserParams class offers customisation to the user; directories from which to input data, save output data and select
-    the years for which the SDG is to be calculated. 
+Great Britain (roads): Ordnance Survey Open Roads. 
+[https://www.ordnancesurvey.co.uk/products/os-mastermap-topography-layer](https://www.ordnancesurvey.co.uk/products/os-open-roads)
     
-    Once UserParams are specified, SDG15_1_1_Calculate.ipynb allows the user to calculate SDG15_1_1 across multiple years and 
-    outputs results as both a data frame and a choropleth map.   
+United Kingdom (population): WorldPop Hub Open Spatial Demographic Data and Research.
+(https://hub.worldpop.org/)
+        
+England and Wales (rural-urban classification): Rural-Urban Classification, ONS Open Geography Portal.  
+(https://geoportal.statistics.gov.uk/datasets/53360acabd1e4567bc4b8d35081b36ff/about)
     
-    SDG15_1_1_Analysis.ipynb offers the user further insight into the data, allowing SDG metrics to be explored by individual land               divisions across time. 
+England and Wales (statistical geography boundaries): Local-Authority District Boundaries, ONS Open Geography Portal. 
+(https://geoportal.statistics.gov.uk/) 
+
+## Methodology
+
+
        
-### Calculation
-    
-    Forest area as a proportion of total land area (PFATLA) = Forest area (reference year)/Land area (reference year)*100 
 
-### Analysis
+## Outputs
 
-    SDGBase presents an abstract base class enabling the defintion of input and output directories for data analysis, use of relevant
-    read methods based on the file extension of inputs, and the joining of dataframes; applicable to 
-    analysis of additional SDGs.  
-    
-    SDG15_1_1 is a child class of SDGBase and allows for the automatic pairing of data input files published in the same year, 
-    analysis across multiple years, calculation of SDG15_1_1 and plotting and saving of results.     
-    
-    SDG15_1_1_Calculate.ipynb allows the user to calculate SDG15_1_1 from the file directories specified in UserParams class and produces
-    and saves outputs (forest area as a proportion of total land area for each specified land division) for each available year as both a       .csv file and as a choropleth map (.jpeg).
-    
-    SDG15_1_1_Analysis.ipynb allows plotting of a time series of forest area as a proportion of total land area for each land division         across available years.   
-              
-### Outputs
 
-    SDG15_1_1_Calculate.ipynb produces outputs for each specified year as a .csv file (forest area as a proportion of total land area for       each specified land division) and a.jpeg (choropleth map of forest area as a proportion of total land area). 
-    
-    SDG15-1_1_Analysis.ipynb allows plotting of a time series of forest area as a proportion of total land area for each land division         across available years.   
-       
-       
+### Considerations
+
+**It may be possible to find a geographic representation of rural-urban classifications. In this instance, administrative boundaries won't be necessary. This code is however designed to be run with them as an input, so that step will need to be omitted.**
+
+All access roads: OS data provides road classifications, but does not define all season. 
