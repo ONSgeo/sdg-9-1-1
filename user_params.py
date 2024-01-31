@@ -43,12 +43,16 @@ class UserParams:
         # The specific path to the Roads shape file for the single year
         self.roads_file_path: Optional[str] = f"{self.root_dir}\\data\\sdg_9_1_1_data\\2023_os_oproad\\2023_os_oproad.shp"
 
+        # The column that contains the rural urban classifications
         self.rural_class_col: str = "Rural Urban Classification 2011 (6 fold)"
 
+        # The column that contains the road type classifications
         self.road_class_col: str = "road_class"
         
+        # The type of roads to filter out of the dataframe
         self.road_classif_list: List[str] = ["Unknown", "Not Classified"]
        
+        # The column to dissolve the dataframes on
         self.dissolve_col: str = "Local Authority District Area 2011 Code"
 
         # Option to save the resulting csv files
