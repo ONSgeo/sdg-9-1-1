@@ -33,6 +33,7 @@ jobs:
       - name: Run tests
         run: |
           python -m unittest
+          python -m pytest tests/
       - name: Install and run linters
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.11
         run: |
