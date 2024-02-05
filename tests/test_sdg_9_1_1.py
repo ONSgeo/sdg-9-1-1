@@ -1,8 +1,8 @@
 import pytest 
 from hypothesis import given, strategies as st
 
-from src.sdg_9_1_1_src import SDG9_1_1
-from ..user_params import UserParams
+from src.sdg_9_1_1_src.sdg_9_1_1 import SDG9_1_1
+from user_params import UserParams
 
 params = UserParams()
 
@@ -51,3 +51,7 @@ def test_get_min_len_array(arr1, arr2) -> None:
     assert "max" in result
     assert result["min"] == min(arr1, arr2, key=len)
     assert result["max"] == max(arr1, arr2, key=len)
+
+
+if __name__ == '__main__':
+    pytest.main()
