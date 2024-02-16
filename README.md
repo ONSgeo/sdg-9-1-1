@@ -69,21 +69,21 @@ Since the United Kingdom is made up of four countries, each with their own metho
 
 1. The Rural-Urban Classification (dataframe) is merged to geographic boundaries (geo-dataframe). This creates a spatial representation of rural areas. The merge is completed on a common column that is automatically determined based upon column similarity, so the input dataframes don't need to have a perfectly matched column. This subverts the need for the pre-processing of input data, such as when one dataset contains information covering Great Britain and the other only Wales and England. 
 
-2. The newly created rural areas geo-dataframe is next overlayed onto the population raster. The resultant product is a geo-dataframe of the popualtion of rural areas; location, density and total popualtion. The overlay is completed as an intersection, thus discarding the urban population which is not relevant to the calculation of this indicator. 
+2. The newly created rural areas geo-dataframe is next overlayed onto the population raster. The resultant product is a geo-dataframe of the population of rural areas; location, density and total population. The overlay is completed as an intersection, thus discarding the urban population which is not relevant to the calculation of this indicator. 
 
-3. Processing of the roads geo-dataframe is completed seperatley before merging to the rural popualtion geodataframe since it is typically very large in it's raw format. Firstly, all-season roads are isolated by excluding non-all-season roads using a filter condition. The geometry of the roads are then buffered to 2000m to provide a catchment for areas > 2km from an all-season road. All-season roads in rural areas only are captured through an intersection overlay with the rural areas geodataframe, and the final buffered rural roads product is dissolved to geographic boundaries for simplification. 
+3. Processing of the roads geo-dataframe is completed separately before merging to the rural population geo-dataframe since it is typically very large in it's raw format. Firstly, all-season roads are isolated by excluding non-all-season roads using a filter condition. The geometry of the roads are then buffered to 2000m to provide a catchment for areas > 2km from an all-season road. All-season roads in rural areas only are captured through an intersection overlay with the rural areas geo-dataframe, and the final buffered rural roads product is dissolved to geographic boundaries for simplification. 
 
-4. The roads geodataframe and rural popualtion geodataframe are then spatially joined with the predicate "within" to produce a geodataframe of the population living within 2km of an all-season road.
+4. The roads geo-dataframe and rural population geo-dataframe are then spatially joined with the predicate "within" to produce a geo-dataframe of the population living within 2km of an all-season road.
 
-5. The sum of the population living within 2km of an all season road is divided by the total rural population and multiplied by 100 to yield the percentage of the rural popualtion living within 2km of an all-season road.
+5. The sum of the population living within 2km of an all-season road is divided by the total rural population and multiplied by 100 to yield the percentage of the rural population living within 2km of an all-season road.
      
-Full programatic calculation and methodology is found within `in sdg_9_1_1_src/sdg_9_1_1.py`.  
+Full programmatic calculation and methodology is found within `in sdg_9_1_1_src/sdg_9_1_1.py`.  
 
 ### Outputs
 
 Currently available outputs include:
 
-- Population and population within 2km of an all season road for each specified rural area (.csv).
+- Population and population within 2km of an all-season road for each specified rural area (.csv).
 
 
 ## Notes
@@ -106,17 +106,17 @@ England and Wales (statistical geography boundaries): Local-Authority District B
 
 ### Considerations
 
-- The methodology of this indicator calcualtion is based upon assumed inpout data formats (see methodology). If better input data is found in an alternative format, methodology may need to be adjusted accordingly.
+- The methodology of this indicator calculation is based upon assumed input data formats (see methodology). If better input data is found in an alternative format, methodology may need to be adjusted accordingly.
 - It may be possible to find a geographic representation of rural-urban classifications. In this instance, administrative boundaries won't be necessary. This code is however designed to be run with them as an input, so that step will need to be omitted.
-- This script refers to administrative boundaries as LADs by default in variables and functions since this is what we used in the initial calculation. The calculation will still hold up for any administartive boundary shapefile, although the nomenlature may become confusing.
-- We chose to exclude roads classified by Ordnance Survey as "Not-Classified" and "Unknown" as being not all-season in our initial calculation. Since they are not explicitly defined as being all-season (or not), these definitons are open to some interpretation. 
+- This script refers to administrative boundaries as LADs by default in variables and functions since this is what we used in the initial calculation. The calculation will still hold up for any administrative boundary shapefile, although the nomenclature may become confusing.
+- We chose to exclude roads classified by Ordnance Survey as "Not-Classified" and "Unknown" as being not all-season in our initial calculation. Since they are not explicitly defined as being all-season (or not), these definitions are open to some interpretation. 
 - Please consult the [UN indicator requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf)for further considerations.
 
 ### Further work 
 
-- The input data and methodolofy should be comprehsivenly compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf) wehn considering improvements.
+- The input data and methodology should be comprehensively compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf) when considering improvements.
 - `sdg_9_1_1.py` currently has no notebook for ease of use. It would benefit from having one.
-- This script currently allows for the indicator to be calculated as a total for the areas covered by the input data. It is possible (and probably useful) order to calcualte this indicator at the highest level of granularity offerred by the input data. 
+- This script currently allows for the indicator to be calculated as a total for the areas covered by the input data. It is possible (and probably useful) order to calculate this indicator at the highest level of granularity offered by the input data. 
 
 #### Authors
 
