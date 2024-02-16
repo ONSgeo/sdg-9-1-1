@@ -6,8 +6,7 @@ Included in the 17 SDGs is Goal 9, which aims to ["Build resilient infrastructur
 
 This code aims to provide an automated calculation of SDG indicator 9.1.1 for the timely reporting on progress towards Goal 9. The most recent reporting of this indicator by the UK covers the year [2011](https://sdgdata.gov.uk/9-1-1/).
 
-### Set-up 
-
+### Set-up and usage
 
 1. **Clone this repository** into the root directory you'd like to work from. 
 
@@ -28,54 +27,20 @@ This code aims to provide an automated calculation of SDG indicator 9.1.1 for th
 - `root directory` will be taken from the environment variable.
 - `data_dir` refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
 - `output_dir` refers to the location in which outputs should be stored. If none is provided, data will be output to the root directory as "sdg_x_x_x_output".
-- **if only calculating for a single year**, set single_year_test to True.
-- `lad_file_path`: takes the specific path to the LAD file for the single year.
-- `sam_file_path`: takes the specific path to the SAM file for the single year.
-- `nfi_file_path`: takes the specific path to the NFI file for the single year.
+- **if only calculating for a single year**, set `single_year_test` to True.
 - `year_start` expects the starting year for multiple exports. If calculating for a single year, this will be the date of that year.
 - `year_end` expects the ending year for multiple year exports. If calculating for a single year, this will take None.
-- `save_shp_file` will save results as shapefiles if set to True. This will impact performance speed. 
+- `raster_file_path`: The specific path to the raster population file for the single year
+- `ruc_file_path`: The specific path to the Rural Urban Classification file for the single year
+- `lad_file_path`: The specific path to the LAD shape file for the single year
+- `roads_file_path`: The specific path to the Roads shape file for the single year
+- `rural_class_col`: The column that contains the rural urban classifications
+- `road_class_col`: The column that contains the road type classifications
+- `road_classif_list`: The type of roads to filter out of the dataframe
+- `dissolve_col`: The column to dissolve the dataframes on
+- `save_csv_file` will save results as .csv if set to True.
 
-### Usage 
-
-1. Clone this repository into the directory you'd like to work from. 
-
-2. In the command-line interface, navigate to the root folder of the project and enter:
-     
-    pip install .
-    
-3. Create a .env file to set the user parameters. To do this, open Notepad and write `ROOT_DIR=` and the directory you'd like to work from,  eg: 
-    
-    ```ROOT_DIR=C:\Users\username\scripts\sdg15_1_1```     
-
-Save this notepad as a `.env` file (by simply saving as `.env`) in the main directory you'd like to work from.
-
-4. The **UserParams class (found in `user_params.py`) is where unique parameters are defined for the SDG indicator calculation.**
-   
-   It will make the assumption that input data will be located in the main directory within a folder named sdg_x_x_x_data, unless you specify a different `data_dir`, eg:
-   
-   if `self.data_dir: Optional[str] = None`:
-   
-   data will be stored in: `C:\Users\username\scripts\SDGs\sdg_x_x_x_data`
-
-   else if `self.data_dir: Optional[str] = "C:\Users\username\somewhere_else"`:
-
-   data will be stored in: `C:\Users\username\somewhere_else`
-
-   This is also true for the output directory, where the default directory for output data will be: 'C:\Users\username\scripts\SDGs\sdg_x_x_x_output'
-
-   For this SDG indicator the other user parameters are:
-     - `raster_file_path`: The specific path to the raster population file for the single year
-     - `ruc_file_path`: The specific path to the Rural Urban Classification file for the single year
-     - `lad_file_path`: The specific path to the LAD shape file for the single year
-     - `roads_file_path`: The specific path to the Roads shape file for the single year
-     - `rural_class_col`: The column that contains the rural urban classifications
-     - `road_class_col`: The column that contains the road type classifications
-     - `road_classif_list`: The type of roads to filter out of the dataframe
-     - `dissolve_col`: The column to dissolve the dataframes on
-    
-5. SDG9_1_1_Calculate can now be used!
-      
+### useage - notebooks       
 
 ## Input Data
 
