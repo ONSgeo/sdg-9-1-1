@@ -40,9 +40,10 @@ This code aims to provide an automated calculation of SDG indicator 9.1.1 for th
 - `dissolve_col`: The column to dissolve the dataframes on
 - `save_csv_file` will save results as .csv if set to True.
 
-### useage - notebooks       
+## Useage      
 
-## Input Data
+
+### Input Data
 
 This SDG indicator requires 4 distinct data types to be input: 
 
@@ -60,6 +61,23 @@ Since the United Kingdom is made up of four countries, each with their own metho
 
 [Further detail on requirements for SGG 9.1.1 as specified by the UN.](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf) 
 
+### Methodology
+
+1. The Rural-Urban Classification (dataframe) is merged to geographic boundaries (geodataframe). This creates a spatial representation of rural areas. The merge is completed on a common column that is automatically determined based upon column similarity, so the input dataframes don't need to have a perfectly matched column. This subverts the need for the pre-processing of input data, such as when one dataset contains information covering Great Britain and the other only Wales and England. 
+
+2. The newly created rural areas geodataframe is next overlayed onto the population raster. The resultant product is a geodataframe of the popualtion of rural areas; location, density and total popualtion. The overlay is completed as an intersection, thus discarding the urban population which is not relevant to the calculation of this indicator. 
+
+3. Processing of the roads geodataframe is completed seperatley before merging to the rural popualtion geodataframe since it is typically very large in its raw format. Firstly, all-season roads are isolated by excluding non-all-season roads using a filter condition. The geometry of the roads are then buffered to 2000m to provide a catchment for areas > 2km from an all-season road. All-season roads in rural areas only are captured through an intersection overlay with the rural areas geodataframe, and the final buffered rural roads product is dissolved to geographic boundaries for simplification. 
+
+4. The roads geodataframe and rural popualtion geodataframe are then spatially joined with the predicate "within" to produce a geodataframe of the population living within 2km of an all-season road.
+
+5. The sum of the population living within 2km of an all season road is divided by the total rural population and multiplied by 100 to yield the percentage of the rural popualtion living within 2km of an all-season road.
+     
+Calculations and methodology can be found within `in sdg_9_1_1_src/sdg_9_1_1.py`.  
+
+### Outputs
+
+
 ### Previously used data sources
     
 Great Britain (roads): Ordnance Survey Open Roads. 
@@ -74,21 +92,6 @@ England and Wales (rural-urban classification): Rural-Urban Classification, ONS 
 England and Wales (statistical geography boundaries): Local-Authority District Boundaries, ONS Open Geography Portal. 
 (https://geoportal.statistics.gov.uk/) 
 
-## Output data
-
-## Methodology
-
-1. The Rural-Urban Classification (dataframe) is merged to geographic boundaries (geodataframe). This creates a spatial representation of rural areas. The merge is completed on a common column that is automatically determined based upon column similarity, so the input dataframes don't need to have a perfectly matched column. This subverts the need for the pre-processing of input data, such as when one dataset contains information covering Great Britain and the other only Wales and England. 
-
-2. The newly created rural areas geodataframe is next overlayed onto the population raster. The resultant product is a geodataframe of the popualtion of rural areas; location, density and total popualtion. The overlay is completed as an intersection, thus discarding the urban population which is not relevant to the calculation of this indicator. 
-
-3. Processing of the roads geodataframe is completed seperatley before merging to the rural popualtion geodataframe since it is typically very large in its raw format. Firstly, all-season roads are isolated by excluding non-all-season roads using a filter condition. The geometry of the roads are then buffered to 2000m to provide a catchment for areas > 2km from an all-season road. All-season roads in rural areas only are captured through an intersection overlay with the rural areas geodataframe, and the final buffered rural roads product is dissolved to geographic boundaries for simplification. 
-
-4. The roads geodataframe and rural popualtion geodataframe are then spatially joined with the predicate "within" to produce a geodataframe of the population living within 2km of an all-season road.
-
-5. The sum of the population living within 2km of an all season road is divided by the total rural population and multiplied by 100 to yield the percentage of the rural popualtion living within 2km of an all-season road.
-     
-Calculations and methodology can be found within `in sdg_9_1_1_src/sdg_9_1_1.py`.  
 
 ### Considerations
 
