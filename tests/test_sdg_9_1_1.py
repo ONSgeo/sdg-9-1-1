@@ -1,5 +1,7 @@
 import pytest 
 from hypothesis import given, strategies as st
+import pandas as pd
+
 
 from src.sdg_9_1_1_src import SDG9_1_1
 from user_params import UserParams
@@ -59,9 +61,16 @@ def test_get_min_len_array(arr1, arr2) -> None:
 
 
 @pytest.fixture
-def create_filter_land_on_col_df():
+def create_remove_duplicate_cols_df():
     data = {
-        "col1": [0, 1, 0, 2],
+        "col1": [0, 1, 0, 1],
         "col2": [0, 1, 0, 1]
     }
     return pd.DataFrame().from_dict(data)
+
+def test_filter_land_on_col(create_remove_duplicate_cols_df):
+    instance = SDG9_1_1("", params.root_dir)
+    
+    result = instance.remove_duplicate_cols(create_remove_duplicate_cols_df)
+    assert len(result.columns) == 1
+    assert isinstance(result, pd.DataFrame)   
