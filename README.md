@@ -6,7 +6,7 @@ Included in the 17 SDGs is Goal 9, which aims to ["Build resilient infrastructur
 
 This code aims to provide an automated calculation of SDG indicator 9.1.1 for the timely reporting on progress towards Goal 9. The most recent reporting of this indicator by the UK covers the year [2011](https://sdgdata.gov.uk/9-1-1/).
 
-### Set-up and usage
+## Set-up
 
 1. **Clone this repository** into the root directory you'd like to work from. 
 
@@ -39,6 +39,7 @@ This code aims to provide an automated calculation of SDG indicator 9.1.1 for th
 - `road_classif_list`: The type of roads to filter out of the dataframe
 - `dissolve_col`: The column to dissolve the dataframes on
 - `save_csv_file` will save results as .csv if set to True.
+
 
 ## Useage      
 
