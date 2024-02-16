@@ -7,18 +7,34 @@ Included in the 17 SDGs is Goal 9, which aims to ["Build resilient infrastructur
 This code aims to provide an automated calculation of SDG indicator 9.1.1 for the timely reporting on progress towards Goal 9. The most recent reporting of this indicator by the UK covers the year [2011](https://sdgdata.gov.uk/9-1-1/).
 
 ### Set-up 
-?
-1. Clone this repository into the directory you'd like to work from. 
+
+
+1. **Clone this repository** into the root directory you'd like to work from. 
+
+2. **Install the SDG base class:** In the command-line interface, navigate to the root directory of the project and enter:
+
+    `pip install .`
+
+   The SDG base class handles methods common to all SDG indicator calculations and can be found in [this repository](https://github.com/ONSgeo/sdg_base).
+
+4. **Create an environment variable** to set the address of the root directory. Using environment variables negates the need to enter personal information into the script. Open Notepad and write:
+
+    `ROOT_DIR=C:\root\directory\address`
     
-2. Create a .env file to set the directory from which inputs will be imported and results will be exported:
+    Save this as the extension ".env" in the root directory. 
 
-   Open the Notepad app and write ROOT_DIR= followed by the directory in which the input data is stored (and results we be exported to),  eg: 
-    
-    ROOT_DIR=C:\Users\username\scripts\sdg11_3_1     
+5. **Specify user parameters:** `user_params.py` requires user input:
 
-Save this notepad as a .env file within the cloned repository.
-
-4. Userparams class 
+- `root directory` will be taken from the environment variable.
+- `data_dir` refers to the location of input data. If none is provided, it will assume the data is located within the root directory, in a folder named "sdg_x_x_x_data".
+- `output_dir` refers to the location in which outputs should be stored. If none is provided, data will be output to the root directory as "sdg_x_x_x_output".
+- **if only calculating for a single year**, set single_year_test to True.
+- `lad_file_path`: takes the specific path to the LAD file for the single year.
+- `sam_file_path`: takes the specific path to the SAM file for the single year.
+- `nfi_file_path`: takes the specific path to the NFI file for the single year.
+- `year_start` expects the starting year for multiple exports. If calculating for a single year, this will be the date of that year.
+- `year_end` expects the ending year for multiple year exports. If calculating for a single year, this will take None.
+- `save_shp_file` will save results as shapefiles if set to True. This will impact performance speed. 
 
 ### Usage 
 
