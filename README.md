@@ -57,7 +57,7 @@ This SDG indicator requires 4 distinct data types to be input:
 
 3. **A classification of rural and urban areas.** This is needed to isolate the rural population. The assumed format of this data is .csv.
 
-4. **Administrative geography boundaries**. These boundaries provide a geographic reference to the rural-urban classification and thus needs match the granularity documented by the rural-urban classification: eg. if the rural-urban classification uses Local Authority Districts (LADs), then LAD boundaries are required. The assumed format of this data is .shp. 
+4. **Boundaries of administrative areas**. These boundaries provide a geographic reference to the rural-urban classification and thus needs match the granularity documented by the rural-urban classification: eg. if the rural-urban classification uses Local Authority Districts (LADs), then LAD boundaries are required. The assumed format of this data is .shp. 
 
 Each data source used to calculate this SDG should be sampled from the same year(s).   
 
@@ -106,13 +106,19 @@ England and Wales (statistical geography boundaries): Local-Authority District B
 
 ### Considerations
 
+- The methodology of this indicator calcualtion is based upon assumed inpout data formats (see methodology). If better input data is found in an alternative format, methodology may need to be adjusted accordingly.
 - It may be possible to find a geographic representation of rural-urban classifications. In this instance, administrative boundaries won't be necessary. This code is however designed to be run with them as an input, so that step will need to be omitted.
-- This code uses LADs as default as the RUC was defined by LADs. This may not be the case in the future. Although the calculation will still hold up for any shapefile with an attribute table merginf with a csv, the nomenlature may become confusing.
-- This method currently allows for the indicator to be calculated as a total for the areas covered by the input data. In order to calcualte this SDG at a higher granularity, eg per Local Authority district could be done but we haven't
-- we've taken blah blah roads as not being all season. This is somehat open to iterpretation.
-- Assumed data formats - if they're not used and better ones are found, changes to the methods will be required. 
+- This script refers to administrative boundaries as LADs by default in variables and functions since this is what we used in the initial calculation. The calculation will still hold up for any administartive boundary shapefile, although the nomenlature may become confusing.
+- We chose to exclude roads classified by Ordnance Survey as "Not-Classified" and "Unknown" as being not all-season in our initial calculation. Since they are not explicitly defined as being all-season (or not), these definitons are open to some interpretation. 
+- Please consult the [UN indicator requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf)for further considerations.
 
 ### Further work 
 
-- `sdg_9_1_1.py` currently has no notebook for ease of use. It would benefit from having one. 
+- The input data and methodolofy should be comprehsivenly compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf) wehn considering improvements.
+- `sdg_9_1_1.py` currently has no notebook for ease of use. It would benefit from having one.
+- This script currently allows for the indicator to be calculated as a total for the areas covered by the input data. It is possible (and probably useful) order to calcualte this indicator at the highest level of granularity offerred by the input data. 
+
+#### Authors
+
+Ed Cuss (EdCussONS) & Lucy Astley-Jones (LucyAstleyJonesONS).
 
