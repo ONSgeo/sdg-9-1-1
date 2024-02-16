@@ -7,6 +7,11 @@ from user_params import UserParams
 params: UserParams = UserParams()
 
 
+def test_init():
+    instance = SDG9_1_1("", params.root_dir)
+    assert isinstance(instance, SDG9_1_1)
+
+
 @given(
     st.lists(st.integers(), min_size=1, max_size=20), 
     st.lists(st.integers(), min_size=1, max_size=20)
@@ -53,3 +58,10 @@ def test_get_min_len_array(arr1, arr2) -> None:
     assert result["max"] == max(arr1, arr2, key=len)
 
 
+@pytest.fixture
+def create_filter_land_on_col_df():
+    data = {
+        "col1": [0, 1, 0, 2],
+        "col2": [0, 1, 0, 1]
+    }
+    return pd.DataFrame().from_dict(data)

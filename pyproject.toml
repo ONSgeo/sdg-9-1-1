@@ -19,7 +19,9 @@ dependencies = [
     "rasterio == 1.3.9",
     "shapely == 1.7.1",
     "tqdm",
-    "typing"
+    "typing",
+    "hypothesis",
+    "pytest"
 ]
 
 [project.optional-dependencies]
