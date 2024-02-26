@@ -117,7 +117,6 @@ England and Wales (statistical geography boundaries): Local-Authority District B
 ### Further work 
 
 - The input data and methodology should be comprehensively compared against [UN specified requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf) when considering improvements.
-- `sdg_9_1_1.py` currently has no notebook for ease of use. It would benefit from having one.
 - This script currently allows for the indicator to be calculated as a total for the areas covered by the input data. It is possible (and probably useful) order to calculate this indicator at the highest level of granularity offered by the input data.
 - The methodology of this calculator takes input data saved locally. The ability to directly stream input data, through an API or otherwise, is desirable but dependent on the data source. 
 
