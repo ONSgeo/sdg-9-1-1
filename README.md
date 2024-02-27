@@ -110,8 +110,8 @@ England and Wales (statistical geography boundaries): Local-Authority District B
 
 - The methodology of this indicator calculation is based upon assumed input data formats (see methodology). If better input data is found in an alternative format, methodology may need to be adjusted accordingly.
 - It may be possible to find a geographic representation of rural-urban classifications. In this instance, administrative boundaries won't be necessary. This code is however designed to be run with them as an input, so that step will need to be omitted.
-- This script refers to administrative boundaries as LADs by default in variables and functions since this is what we used in the initial calculation. The calculation will still hold up for any administrative boundary shapefile, although the nomenclature may become confusing.
-- We chose to exclude roads classified by Ordnance Survey as "Not-Classified" and "Unknown" as being not all-season in our initial calculation. Since they are not explicitly defined as being all-season (or not), these definitions are open to some interpretation. 
+- This script refers to administrative boundaries as LADs by default in variables and functions since this is what was used in the initial calculation. The calculation will still hold up for any administrative boundary shapefile, although the nomenclature may become confusing.
+- We chose roads classified by Ordnance Survey as "Not-Classified" and "Unknown" as being not all-season in this calculation. Since they are not explicitly defined as being all-season (or not), these definitions are open to some interpretation. 
 - Please consult the [UN indicator requirements](https://unstats.un.org/sdgs/metadata/files/Metadata-09-01-01.pdf) for further considerations.
 
 ### Further work 
