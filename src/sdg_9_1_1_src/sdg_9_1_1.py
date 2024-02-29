@@ -276,7 +276,7 @@ class SDG9_1_1(SDGBase):
 
         if save_shp_file:
             self.save_data(
-                pd.DataFrame({"Year": year, "SDG_9_1_1": res}), f"sdg_9_1_1_{year}.csv"
+                pd.DataFrame({"Year": year, "SDG_9_1_1": res}, index=[0]), f"sdg_9_1_1_{year}.csv"
             )
 
         return True
