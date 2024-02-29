@@ -25,7 +25,9 @@ def test_check_similarity(arr1, arr2) -> None:
 
     assert isinstance(result, float)
     assert 0.0 <= result <= 100.0
-    assert result == len(set(arr1).intersection(set(arr2))) / len(set(arr1)) * 100
+    assert (
+        result == len(set(arr1).intersection(set(arr2))) / len(set(arr1)) * 100
+    )
 
 
 @pytest.mark.parametrize(

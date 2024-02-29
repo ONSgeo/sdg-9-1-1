@@ -117,7 +117,9 @@ class SDG9_1_1(SDGBase):
     ) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
         out_gdf = gdf.copy()
         for classif in remove_list:
-            out_gdf = self.remove_rows_by_class(out_gdf, classification_col, classif)
+            out_gdf = self.remove_rows_by_class(
+                out_gdf, classification_col, classif
+            )
 
         return out_gdf
 
@@ -155,7 +157,9 @@ class SDG9_1_1(SDGBase):
                     col1 != "geometry" or col2 != "geometry"
                 ):
                     array_dict = self.get_min_len_array(inp_df1, inp_df2)
-                    similarity = self.check_similarity(inp_df1[col1], inp_df2[col2])
+                    similarity = self.check_similarity(
+                        inp_df1[col1], inp_df2[col2]
+                    )
 
                     if col1 in array_dict["min"].columns:
                         similarity = self.check_similarity(
@@ -182,7 +186,9 @@ class SDG9_1_1(SDGBase):
 
         if max_similarity >= thresh:
             merged_gdf = gdf.merge(
-                df, left_on=similarity_cols["df1"], right_on=similarity_cols["df2"]
+                df,
+                left_on=similarity_cols["df1"],
+                right_on=similarity_cols["df2"],
             )
             return merged_gdf
         print("no match above threshold")
@@ -201,8 +207,8 @@ class SDG9_1_1(SDGBase):
     ) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
         drop_cols: List[str] = []
 
-        for col1 in gdf.columns:
-            for col2 in gdf.columns:
+        for i, col1 in enumerate(gdf.columns):
+            for col2 in gdf.columns[i + 1 :]:
 
                 if col1 == col2:
                     continue
@@ -222,20 +228,24 @@ class SDG9_1_1(SDGBase):
         road_classif_list: List[str],
         dissolve_col: str,
         year: int,
-        save_shp_file: bool = False,
+        save_csv_file: bool = False,
     ) -> bool:
 
         # Load files
         print("Loading data")
         raster_data = self.load_raster_data(raster_file_path)
         # ruc_data = self.load_data(ruc_file_path)
-        ruc_data = pd.read_excel(ruc_file_path, sheet_name="LAD11_LAD13", header=2)
+        ruc_data = pd.read_excel(
+            ruc_file_path, sheet_name="LAD11_LAD13", header=2
+        )
         lad_lookup_data = self.load_data(lad_file_path)
         os_roads_data = self.load_data(roads_file_path)
 
         # calculations
         print("Merging LAD and RUC data")
-        ruc_output_areas = self.attribute_merge_by_common(lad_lookup_data, ruc_data)
+        ruc_output_areas = self.attribute_merge_by_common(
+            lad_lookup_data, ruc_data
+        )
         ruc_output_areas = ruc_output_areas
         rural_output_areas = self.remove_multiple_rows_by_class(
             ruc_output_areas,
@@ -260,13 +270,17 @@ class SDG9_1_1(SDGBase):
 
         print("Buffering roads")
         all_season_roads = all_season_roads
-        all_season_roads["geometry"] = all_season_roads["geometry"].buffer(2000)
+        all_season_roads["geometry"] = all_season_roads["geometry"].buffer(
+            2000
+        )
 
         print("Overlaying buffered roads and RUC LADs")
         rural_road_catchment = gpd.overlay(
             all_season_roads, rural_output_areas, how="intersection"
         )
-        rural_road_catchment_dis = rural_road_catchment.dissolve(by=dissolve_col)
+        rural_road_catchment_dis = rural_road_catchment.dissolve(
+            by=dissolve_col
+        )
 
         print("Joining LAD population with buffered roads")
         rural_popn_within = gpd.sjoin(
@@ -274,9 +288,10 @@ class SDG9_1_1(SDGBase):
         )
         res = (rural_popn_within["Z"].sum() / rural_popn_lad["Z"].sum()) * 100
 
-        if save_shp_file:
+        if save_csv_file:
             self.save_data(
-                pd.DataFrame({"Year": year, "SDG_9_1_1": res}), f"sdg_9_1_1_{year}.csv"
+                pd.DataFrame({"Year": year, "SDG_9_1_1": res}, index=[0]),
+                f"sdg_9_1_1_{year}.csv",
             )
 
         return True
@@ -284,7 +299,9 @@ class SDG9_1_1(SDGBase):
 
 def run_sdg9_1_1(params: UserParams) -> None:
 
-    gfr: SDG9_1_1 = SDG9_1_1("", params.root_dir, params.data_dir, params.output_dir)
+    gfr: SDG9_1_1 = SDG9_1_1(
+        "", params.root_dir, params.data_dir, params.output_dir
+    )
 
     if params.single_year_test and all(
         [
@@ -306,7 +323,7 @@ def run_sdg9_1_1(params: UserParams) -> None:
             road_classif_list=params.road_classif_list,
             dissolve_col=params.dissolve_col,
             year=params.year_start,
-            save_shp_file=params.save_csv_file,
+            save_csv_file=params.save_csv_file,
         )
 
     else:
